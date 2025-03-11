@@ -1,8 +1,9 @@
-
+#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include <algorithm>
 #include <chrono> 
+//#include <string>
 
 #include "save.h"
 
@@ -14,10 +15,12 @@ void save(std::string_view fileName) {
 		exit(2025);
 	}
 
-	std::cout << fileName << "-" << std::filesystem::file_size(fileName) << "바이트를 저장했습니다." << std::endl;
 
+	std::string WriteFile{ "2025 1학기 STL 2주차_1 강의저장.txt" };
+	std::ofstream out{ WriteFile , std::ios::app }; //검사 필요x , 파일이 깨졌을 때 자동으로 새로 만듬
 
-	std::ofstream out{ "2025 1학기 STL 강의저장.txt" , std::ios::app }; //검사 필요x , 파일이 깨졌을 때 자동으로 새로 만듬
+	std::cout << WriteFile << " 에 " << fileName << " - " 
+		<< std::filesystem::file_size(fileName) << " 바이트를 저장했습니다." << std::endl;
 
 	//저장시간 파일에 기록
 	auto now = std::chrono::system_clock::now(); //time_point를 얻는다
