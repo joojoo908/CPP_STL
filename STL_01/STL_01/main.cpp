@@ -31,21 +31,46 @@ public:
 		println("[{:8}] - {}", id, name); // {} 사이에 띄워쓰기 하면 터짐
 	}
 
+
 private:
 	string name;
 	int id;
 
 	static int sid; //엑세스는 로칼(지역변수) , 라이프 타임은 글로벌(전역)
+
+	/*friend ostream& operator<<(std::ostream& os, const Dog& dog) {
+		os.write((char*)&dog, sizeof(Dog));
+		return os;
+	}*/
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		os << dog.id << "  " <<dog.name << endl;
+		return os;
+	}
+
+	friend std::istream& operator>>(std::istream& os, const Dog& dog) {
+		os.read((char*)&dog, sizeof(Dog));
+		return os;
+	}
+
 };
 
 int Dog::sid{};
 
 // 문제 : dog 객체 10만개를 binary 모드로 연 file "Dog 10만마리" 에 저장하였다
-// 저장은 파일의 write함수를 사용하여 객체 메모리 전체를 그대로 저장하였다
-// 파일에 있는 객체 전체를 메모리로 읽어와라
-// naim과 id 를 화면에 출력하라
+// 출력 연산자 << 를 사용하여 저장하였다 
+// 함수는 다음과 같다
+/*friend ostream& operator<<(std::ostream& os, const Dog& dog) {
+		os.write((char*)&dog, sizeof(Dog));
+		return os;
+	}*/
 
-
+//c++ file           I/O
+//binary           저수준 (read,write 함수)
+//text (0a->0d)    고수준 (>>  ,<<  )  
+//파일은 랜덤 억세스가 가능하도록 할 수도 있다 
+ 
+array<Dog, 10'0000 > dogs;
 
 //--------
 int main()
@@ -55,25 +80,31 @@ int main()
 
 	ifstream in{ "Dog 10만마리" , ios::binary };
 
-	vector<Dog> v;
+	/*for (int i = 0; i < 10'0000; ++i) {
+		Dog dog;
+		in << dog;
+	}*/
 
-	array<Dog, 10'0000 > dogs;
-	in.read((char*)dogs.data(), sizeof(Dog) * dogs.size());
+	/*vector<Dog> v;
 	Dog dog;
 	while (in.read((char*)&dog, sizeof(dog)))
 		v.push_back(dog);
-	
-	
-	//dog 생성
-	//for (int i = -0; i < 10'0000; ++i) {
-	//	Dog dog;
-	//	out.write((char*)&dog, sizeof(dog)); //&dog 어드레스 오브 도그
-	//}
 
-
-	for (Dog dog:v) {
+	for (Dog dog : v) {
 		dog.show();
-	}
+	}*/
+
+	//한번에 메모리에 읽어오게 하라
+	/*Dog dog;
+	for (int i = 0; i < 10; ++i) {
+		in >> dog;
+		cout << dog << endl;
+	}*/
 	
-	//save("main.cpp");
+	in.read((char*)dogs.data(), sizeof(dogs));
+	for (const Dog& dog : dogs) {
+		cout << dog << endl;
+	}
+
+	save("main.cpp");
 }
