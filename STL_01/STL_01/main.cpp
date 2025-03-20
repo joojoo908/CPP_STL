@@ -6,54 +6,74 @@
 // ------------------------------------------------------------
 
 #include <iostream>
-#include <array>
+#include<random>
+#include <print>
 #include <fstream>
-#include <random>
+#include <array>
+#include <vector>
 
 #include "save.h"
 using namespace std;
 
-// 문제: 진짜 랜덤 파일에는 int 값 10만개가 있다
-// int 10만개 전체를 메모리로 읽어 와라
-// binary 모드로 열었고 write 값으로 int 를 기록하였다.
-// 가장 큰 값과 작은 값을 찾아 화면에 출력하라
+default_random_engine dre;
+uniform_int_distribution<int> uid{ 'a','z' };
+
+class Dog { //class는 여기서 연다
+public:
+	Dog() {
+		id = ++sid;
+		for (int i = 0; i < 15; ++i) {
+			name += uid(dre);
+		}
+	}
+
+	void show() const {
+		println("[{:8}] - {}", id, name); // {} 사이에 띄워쓰기 하면 터짐
+	}
+
+private:
+	string name;
+	int id;
+
+	static int sid; //엑세스는 로칼(지역변수) , 라이프 타임은 글로벌(전역)
+};
+
+int Dog::sid{};
+
+// 문제 : dog 객체 10만개를 binary 모드로 연 file "Dog 10만마리" 에 저장하였다
+// 저장은 파일의 write함수를 사용하여 객체 메모리 전체를 그대로 저장하였다
+// 파일에 있는 객체 전체를 메모리로 읽어와라
+// naim과 id 를 화면에 출력하라
+
+
 
 //--------
 int main()
 //--------
-{
-	ifstream in{ "진짜 랜덤.txt" ,ios::binary };
-	if (not in) return 1213;
-
-	array<int, 10'0000> a;
-
-	/*
-	int num;
-	size_t cnt{};
-	while (in.read((char*)&num, sizeof(int)))
-		++cnt;
-	cout << cnt << endl;
-	*/
-
-	in.read((char*)a.data(), a.size() * sizeof(int));
-	//copy(istream_iterator<int>{in} , {}, a.begin());
-
-	/*for (int num : a) {
-		cout << num << endl;
-	}*/
+{ // main은 여기서 연다
 
 
-	//cout << *max_element(istream_iterator<int>{in}, {}) << endl;
+	ifstream in{ "Dog 10만마리" , ios::binary };
 
-	cout << *max_element(a.begin(),a.end()) << endl; // o(n)
-	cout << *min_element(a.begin(),a.end()) << endl; // o(n)
+	vector<Dog> v;
 
+	array<Dog, 10'0000 > dogs;
+	in.read((char*)dogs.data(), sizeof(Dog) * dogs.size());
+	Dog dog;
+	while (in.read((char*)&dog, sizeof(dog)))
+		v.push_back(dog);
 	
-	auto [min,max] = minmax_element(a.begin(), a.end()); // std::pair
-	//구조화된 바인딩
-	cout << *min << endl;
-	cout << *max << endl;
-	//cout << *pos.first << endl;
-	//cout << *pos.second << endl;
+	
+	//dog 생성
+	//for (int i = -0; i < 10'0000; ++i) {
+	//	Dog dog;
+	//	out.write((char*)&dog, sizeof(dog)); //&dog 어드레스 오브 도그
+	//}
+
+
+	for (Dog dog:v) {
+		dog.show();
+	}
+	
 	//save("main.cpp");
 }
