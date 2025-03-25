@@ -16,7 +16,7 @@ void save(std::string_view fileName) {
 	}
 
 
-	std::string WriteFile{ "2025 1학기 STL 3주차 강의저장.txt" };
+	std::string WriteFile{ "2025 1학기 STL 4주차 강의저장.txt" };
 	std::ofstream out{ WriteFile , std::ios::app }; //검사 필요x , 파일이 깨졌을 때 자동으로 새로 만듬
 
 	std::cout << WriteFile << " 에 " << fileName << " - " 
