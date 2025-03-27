@@ -5,49 +5,12 @@
 // RAII -자원의 생명주기를 객체의 생명주기와 일치시키는 프로그래밍 기법
 // ------------------------------------------------------------
 
-
-
 #include <iostream>
-#include <vector>
-#include <numeric>
-#include <memory>
 #include <fstream>
-#include <string>
+#include <algorithm>
 
 #include "save.h"
 using namespace std;
-
-
-class Dog {
-public:
-	Dog() { cout << "멍멍" << endl; }
-	~Dog() { cout << "dead" << endl; }
-};
-
-class 스마트 {
-	Dog* p;
-public:
-	스마트() {}
-	스마트(Dog* p) : p{ p } {}   // RAII 자원의 생명 주기를 객체의 생성 주기와 일치시킨다
-	~스마트() {
-		delete p;
-		cout << "예외가 발생하더라도 지역객체는 반드시 소멸됨을 보장한다 (stack unwinding)" << endl;
-		//스택 언와인딩 - 스택을 되집어 가면서 만들어진 데이터를 소멸시킨다
-	}
-};
-
-void f() 
-{
-	//핸들러가 존재할때만 사용한다 (자바와 같은 경우엔 쓰레기차 운영)
-	unique_ptr<Dog[]> p = make_unique<Dog[]>(3);  // 표준 스마트 포인터 = 동적할당 -> 여러개 생성
-	
-	//예외발생
-	//throw 123;
-
-	cout << "이 문장은 출력되지 않는다" << endl;
-
-}
-
 
 
 //--------
@@ -61,15 +24,19 @@ int main()
 	}
 	ofstream out{ "메인 대문자.cpp" };
 
-	char c{};
+	/*char c{};
 	in >> noskipws;
 	while (in>>c) {
-		if (islower(c))
-			c =toupper(c);
+		c = toupper(c);
 		out << c;
-	}
+	}*/
 
-	save("main.cpp");
+	transform(istreambuf_iterator<char>{in}, {},
+		ostreambuf_iterator<char>{out},
+		[](char c) {return toupper(c); });
+	
+
+	//save("main.cpp");
 	
 	
 }
