@@ -4,7 +4,7 @@
 // callable types - 호출 가능한 타입
 // 1. 함수
 // 2. 함수 포인터
-// 
+// 3. 람다 - 이름없는 함수 (프로그래머가 부를 일이 없기때문에 이름이 없다)
 // ------------------------------------------------------------
 
 #include <iostream>
@@ -13,6 +13,7 @@
 #include <ranges>
 #include <algorithm>
 #include <print>
+#include <chrono>
 
 #include "save.h"
 using namespace std;
@@ -30,29 +31,40 @@ bool 오름차순(int a, int b) {
 	return a < b;
 }
 
-bool 내림차순(int a, int b) {
-	return a > b;
-}
-
 //--------
 int main()
 //--------
 {
 	// (*main)(); //가 맞는 표기법
 
-	for (int& val : a) {
-		val = uid(dre);
+
+	{
+		for (int& val : a) {
+			val = uid(dre);
+		}
+
+		auto b = chrono::high_resolution_clock::now(); //스톱워치 시작
+		sort(a.begin(), a.end(), 오름차순);
+		auto end = chrono::high_resolution_clock::now();//스톱워치 끝
+
+		cout << "걸린시간 - " << end - b << endl;
+		cout << "걸린시간(초) - " << chrono::duration_cast<chrono::seconds>(end - b) << endl;
 	}
 
+	{
+		for (int& val : a) {
+			val = uid(dre);
+		}
 
-	bool (*정렬기준)(int, int) = 내림차순;
-	ranges::sort(a , 정렬기준 ); 
+		auto b = chrono::high_resolution_clock::now(); //스톱워치 시작
+		sort(a.begin(), a.end(), [](int a, int b) {return a < b; }); //람다: 이름없는 함수 
+		auto end = chrono::high_resolution_clock::now(); //스톱워치 끝
 
-	for (int num : a | views::take(100) ) {
-		print("{:8}", num);
+		cout << "걸린시간 - " << end - b << endl;
+		cout << "걸린시간(초) - " << chrono::duration_cast<chrono::seconds>(end - b) << endl;
 	}
 
-	save("main.cpp");
+	//save("main.cpp");
 	
 	
 }
