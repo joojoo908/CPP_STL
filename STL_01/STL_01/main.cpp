@@ -1,40 +1,53 @@
 // ------------------------------------------------------------
-//  - 3 / 25 -
+//  - 3 / 27 -
 // ------------------------------------------------------------
-// 동적(real-time(돌려봐야 알 수 있는)) 할당과 스마트 포인터 -
-// RAII -자원의 생명주기를 객체의 생명주기와 일치시키는 프로그래밍 기법
+// callable type - 
 // ------------------------------------------------------------
 
 #include <iostream>
-#include <fstream>
-#include <algorithm>
+#include <array>
+#include <random>
+#include <ranges>
+//#include <cstdlib>
+#include <print>
 
 #include "save.h"
 using namespace std;
 
+// 문제 랜덤 int 1000만개를 메모리에 저장하라
+// qsort를 이용하여 오름차순 정렬한다
+// 정렬결과를 앞에서부터 1000개를 화면 출력하라
+
+default_random_engine dre{};
+uniform_int_distribution uid{0,999'9999};
+
+array<int, 1000'0000> a;
+
+int 오름차순(const void* a, const void* b) {
+	int* p = (int*)a;
+	int* q = (int*)b;
+	if (*p > *q)
+		return 1;
+	else if (*p < *q)
+		return -1;
+	return 0;
+}
 
 //--------
 int main()
 //--------
 {
-	//문제 "main.cpp" 에 있는 소문자를 모두 대문자로 바꾸어 "메인 대문자.cpp"에 저장하라
-	ifstream in{"main.cpp"};
-	if (not in) {
-		return 1;
+	for (int& val : a) {
+		val = uid(dre);
 	}
-	ofstream out{ "메인 대문자.cpp" };
 
-	/*char c{};
-	in >> noskipws;
-	while (in>>c) {
-		c = toupper(c);
-		out << c;
-	}*/
+	int (*정렬기준)(const void* a, const void* b);
+	정렬기준 = 오름차순;
+	qsort(a.data(), a.size(), sizeof(array<int,a.size()>::value_type), 정렬기준 );
 
-	transform(istreambuf_iterator<char>{in}, {},
-		ostreambuf_iterator<char>{out},
-		[](char c) {return toupper(c); });
-	
+	for (int num : a | views::take(100) ) {  //   | : 버티컬 바    //다양한 필터가 있다
+		print("{:8}", num);
+	}
 
 	//save("main.cpp");
 	
