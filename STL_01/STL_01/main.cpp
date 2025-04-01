@@ -1,6 +1,9 @@
 // ------------------------------------------------------------
-//  - 3 / 27 -
+//  - 4 / 1 -
 // ------------------------------------------------------------
+// 중간고사 4/24 목
+// 과제 4/10 과제설명
+// ---------------------------------------
 // callable types - 호출 가능한 타입
 // 1. 함수
 // 2. 함수 포인터
@@ -8,61 +11,26 @@
 // ------------------------------------------------------------
 
 #include <iostream>
-#include <array>
-#include <random>
-#include <ranges>
-#include <algorithm>
-#include <print>
-#include <chrono>
 
 #include "save.h"
 using namespace std;
 
-// 문제 랜덤 int 1000만개를 메모리에 저장하라
-// stl의 sort를 이용하여 정렬하라
-// 정렬결과를 앞에서부터 1000개를 화면 출력하라
-
-default_random_engine dre{};
-uniform_int_distribution uid{0,999'9999};
-
-array<int, 1000'0000> a;
-
-bool 오름차순(int a, int b) {
-	return a < b;
-}
+class 람다 {
+public:
+	void operator()() { cout << "난 람다야" << endl; };
+};
 
 //--------
 int main()
 //--------
 {
-	// (*main)(); //가 맞는 표기법
+	
 
+	람다 a{};
 
-	{
-		for (int& val : a) {
-			val = uid(dre);
-		}
+	a();
 
-		auto b = chrono::high_resolution_clock::now(); //스톱워치 시작
-		sort(a.begin(), a.end(), 오름차순);
-		auto end = chrono::high_resolution_clock::now();//스톱워치 끝
-
-		cout << "걸린시간 - " << end - b << endl;
-		cout << "걸린시간(초) - " << chrono::duration_cast<chrono::seconds>(end - b) << endl;
-	}
-
-	{
-		for (int& val : a) {
-			val = uid(dre);
-		}
-
-		auto b = chrono::high_resolution_clock::now(); //스톱워치 시작
-		sort(a.begin(), a.end(), [](int a, int b) {return a < b; }); //람다: 이름없는 함수 
-		auto end = chrono::high_resolution_clock::now(); //스톱워치 끝
-
-		cout << "걸린시간 - " << end - b << endl;
-		cout << "걸린시간(초) - " << chrono::duration_cast<chrono::seconds>(end - b) << endl;
-	}
+	cout << typeid(a).name() << endl;
 
 	//save("main.cpp");
 	
