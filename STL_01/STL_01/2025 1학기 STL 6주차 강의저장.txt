@@ -1,0 +1,230 @@
+
+
+======================================
+저장한 시간: 2025-04-08 오후 3:57:12 화요일
+======================================
+
+// ------------------------------------------------------------
+//  - 4 / 8 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// ------------------------------------------------------------
+
+/*
+oop -> 특정 타입을위한 코딩
+generic -> 타입과 관련없는 코딩
+*/
+
+#include <iostream>
+#include <memory>
+#include "STRING.h"
+
+#include "save.h"
+using namespace std;
+
+
+
+//--------
+int main()
+//--------
+{
+	STRING s{ "std::string과 유사한 클래스" };
+
+	STRING t; //디폴트 생성자를 코딩하게 되면 프로그램이 기본 생성자를 만들어 주지 않는다
+
+	t = s; //스페셜한 동작인데 컴파일러가 무조건 만들어 주어야 하지만 유니크 포인터는 이를 해주지 않는다
+
+	save("main.cpp");
+}
+
+======================================
+저장한 시간: 2025-04-08 오후 3:57:31 화요일
+======================================
+
+// ------------------------------------------------------------
+//  - 4 / 8 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// ------------------------------------------------------------
+
+/*
+oop -> 특정 타입을위한 코딩
+generic -> 타입과 관련없는 코딩
+*/
+
+#include <iostream>
+#include <memory>
+#include "STRING.h"
+
+#include "save.h"
+using namespace std;
+
+
+
+//--------
+int main()
+//--------
+{
+	STRING s{ "std::string과 유사한 클래스" };
+
+	STRING t; //디폴트 생성자를 코딩하게 되면 프로그램이 기본 생성자를 만들어 주지 않는다
+
+	t = s; //스페셜한 동작인데 컴파일러가 무조건 만들어 주어야 하지만 유니크 포인터는 이를 해주지 않는다
+
+	save("main.cpp");
+	save("STRING.cpp");
+	save("STRING.h");
+}
+
+======================================
+저장한 시간: 2025-04-08 오후 3:57:31 화요일
+======================================
+
+//-----------------------------------------------------
+//STRING.cpp - std::string 과 유사한 클래스
+//           stl의 표준 컨테이너로서 동작 할 수 있도록
+//
+//-----------------------------------------------------
+
+#include <iostream>
+#include <memory>
+#include"STRING.h"
+
+
+
+STRING::STRING(const char* s) 
+	: len{ strlen(s) } 
+{
+		p.reset();
+		p = std::make_unique<char[]>(len);
+		memcpy(p.get(), s, len);
+}
+
+STRING::STRING(const STRING& other) 
+	: len{ other.len } 
+{
+		p.reset();
+		p = std::make_unique<char[]>(len);
+		memcpy(p.get(), other.p.get(), len);
+}
+
+STRING& STRING::operator=(const STRING& other) 
+{
+	if (this == &other)
+		return *this;
+
+	len = other.len;
+	p.release();
+	p = std::make_unique<char[]>(len);
+	memcpy(p.get(), other.p.get(), len);
+	return *this;
+}
+
+	
+
+size_t STRING::size() const 
+{ 
+	return len;
+}
+
+
+
+std::ostream& operator<<(std::ostream& os, const STRING& str) {
+	for (int i = 0; i < str.len; ++i) {
+		os << str.p[i];
+	}
+	return os;
+}
+
+
+======================================
+저장한 시간: 2025-04-08 오후 3:57:31 화요일
+======================================
+
+//-----------------------------------------------------
+//STRING.h - std::string 과 유사한 클래스
+//           stl의 동작을 깊게 들여다 보기 위해
+//
+//-----------------------------------------------------
+
+#pragma once
+
+#include <iostream>
+#include <memory>
+
+//표준 std::string 과 유사한 동작을 하는 클래스
+class STRING {
+public:
+
+	
+	STRING() = default;
+	STRING(const char* s);
+	STRING& operator=(const STRING&);
+	STRING(const STRING& other);
+
+	//copy assignment operator 복사대입 연산자를 반드시 코딩
+
+	size_t size() const;
+
+private:
+	size_t len;
+	std::unique_ptr<char[]> p; //복사가 안되는 클래스
+
+	friend std::ostream& operator<<(std::ostream& os, const STRING& str);
+};
+
+
+
+======================================
+저장한 시간: 2025-04-08 오후 4:29:23 화요일
+======================================
+
+// ------------------------------------------------------------
+//  - 4 / 8 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// ------------------------------------------------------------
+
+/*
+oop -> 특정 타입을위한 코딩
+generic -> 타입과 관련없는 코딩
+*/
+
+#include <iostream>
+#include <memory>
+#include "STRING.h"
+
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;                  //관찰하고 싶으면 true 로
+
+STRING s{ "이제 준비가 되었다" };
+//--------
+int main()
+//--------
+{
+	관찰 = true;
+	cout << "메인시작" << endl;
+
+	new STRING{"1234567"};
+
+	STRING t;
+
+	t = s;
+
+	cout << "메인 끝" << endl;
+
+	
+
+	save("main.cpp");
+}
