@@ -17,8 +17,14 @@ public:
 	STRING();                         //2025.4.8
 	~STRING();                //전혀 작성할 필요가 없는 함수 인데 관찰을 위해서 코딩하였다
 	STRING(const char* s);
-	STRING& operator=(const STRING&);
+
+	//복사생성과 복사할당
 	STRING(const STRING& other);
+	STRING& operator=(const STRING&);
+
+	//이동생성과 이동할당연산자     //2025.4.8
+	STRING(STRING&&);
+	STRING& operator=(STRING&&);
 
 	//copy assignment operator 복사대입 연산자를 반드시 코딩
 

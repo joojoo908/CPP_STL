@@ -73,14 +73,38 @@ STRING& STRING::operator=(const STRING& other)
 	return *this;
 }
 
+STRING::STRING(STRING&& other)
+	:id{++gid}, len{other.len }
+{
+	p.reset(other.p.get());
+	other.p.release(); //필요없지만 안전을 위해 // 무효과
 	
+	if (관찰) {
+		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
+			id, "이동 생성자", len, (void*)this, (void*)p.get());
+	}
+}
+
+STRING& STRING::operator=(STRING&& other) 
+{
+	if (this == &other)
+		return *this;
+
+	len = other.len;
+	p.reset(other.p.get());
+	other.p.release(); //필요없지만 안전을 위해 // 무효과
+
+	if (관찰) {
+		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
+			id, "이동 operator=", len, (void*)this, (void*)p.get());
+	}
+	return *this;
+}
 
 size_t STRING::size() const 
 { 
 	return len;
 }
-
-
 
 std::ostream& operator<<(std::ostream& os, const STRING& str) {
 	for (int i = 0; i < str.len; ++i) {
@@ -88,6 +112,5 @@ std::ostream& operator<<(std::ostream& os, const STRING& str) {
 	}
 	return os;
 }
-
 
 size_t STRING::gid{ 0 };
