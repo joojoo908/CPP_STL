@@ -1,5 +1,5 @@
 // ------------------------------------------------------------
-//  - 4 / 8 -
+//  - 4 / 10 -
 // ------------------------------------------------------------
 // 중간고사(30) 4/24 목
 // 과제(30) 4/10 과제설명
@@ -13,30 +13,53 @@ generic -> 타입과 관련없는 코딩
 */
 
 #include <iostream>
-#include<array>
-#include <memory>
-#include<algorithm>
+#include <array>
+#include <algorithm>
+#include <fstream>
 #include "STRING.h"
 
 #include "save.h"
 using namespace std;
 
-extern bool 관찰;                  //관찰하고 싶으면 true 로
+extern bool 관찰;             //관찰하고 싶으면 true 로
+
+//문제: "main.cpp"에 있는 단어(공백으로 분리된 char의 집합)를 모두 메모리에 저장하라
+//단어를 50개만 읽는다
+// 단어를 길이기준 오름차순으로 정렬하라
+//정렬한 단어를 모두 출력하라
+
+array<STRING, 50 > words;
 
 //--------
 int main()
 //--------
 {
-	array<STRING, 5> a{ "1" ,"333" , "55555" , "22" , "4444" };
+	STRING s;
+	//string s;
 
-	//문제 a를 글자 길이 기준 오름차순으로 정렬하시오
+	//관찰 = 1;
+	ifstream in{ "main.cpp" };
+	if (not in)
+		return 0;
 
-	관찰 = 1;
-	sort(a.begin(), a.end(), [](const STRING& a, const STRING& b) {return a.size() > b.size(); });
-	관찰 = 0;
-	for (const STRING& s : a) {
-		cout << s << endl;
+	for (STRING& word : words) {
+		in >> word;
 	}
+	for (const STRING& word : words) {
+		cout << word << endl;
+	}
+	//for (const auto& word : words) cout << word << " (" << word.size() << ")\n";
+
+	/*sort(words.begin(), words.end(), [](const STRING& lhs, const STRING& rhs){
+		return lhs.size() < rhs.size(); });*/
+	std::sort(words.begin(), words.end());   //기본정렬 -> , 또는 lese{} 이용
+
+	for (const STRING& word : words) {
+		cout << word <<endl;
+	}
+
 	
-	save("main.cpp");
+
+	//save("main.cpp");
+	//save("STRING.cpp");
 }

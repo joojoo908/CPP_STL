@@ -18,7 +18,7 @@ public:
 	~STRING();                //전혀 작성할 필요가 없는 함수 인데 관찰을 위해서 코딩하였다
 	STRING(const char* s);
 
-	//복사생성과 복사할당
+	//복사생성과 복사할당연산자
 	STRING(const STRING& other);
 	STRING& operator=(const STRING&);
 
@@ -26,7 +26,8 @@ public:
 	STRING(STRING&&);
 	STRING& operator=(STRING&&);
 
-	//copy assignment operator 복사대입 연산자를 반드시 코딩
+	//연산자들
+	bool operator<(const STRING& other) const;   //2025.4.10
 
 	size_t size() const;
 
@@ -37,6 +38,7 @@ private:
 
 	static size_t gid;
 	friend std::ostream& operator<<(std::ostream& os, const STRING& str);
+	friend std::istream& operator>>(std::istream& in, STRING& str);
 
 
 };
