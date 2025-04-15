@@ -12,8 +12,8 @@
 
 bool 관찰{ false };
 
-STRING::STRING() 
-	: id{ ++gid }, len{0}
+STRING::STRING()
+	: id{ ++gid }, len{ 0 }
 {
 	if (관찰) {
 		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
@@ -29,34 +29,34 @@ STRING::~STRING()
 	}
 }
 
-STRING::STRING(const char* s) 
-	: id{++gid} ,len {strlen(s)}
+STRING::STRING(const char* s)
+	: id{ ++gid }, len{ strlen(s) }
 {
-		p.reset();
-		p = std::make_unique<char[]>(len);
-		memcpy(p.get(), s, len);
+	p.reset();
+	p = std::make_unique<char[]>(len);
+	memcpy(p.get(), s, len);
 
-		if(관찰){
-			std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
-				id, "생성자(char*)", len, (void*)this, (void*)p.get());
-		}
+	if (관찰) {
+		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
+			id, "생성자(char*)", len, (void*)this, (void*)p.get());
+	}
 }
 
 //복사생성과 복사할당연산자
-STRING::STRING(const STRING& other) 
+STRING::STRING(const STRING& other)
 	: id{ ++gid }, len{ other.len }
 {
-		p.reset();
-		p = std::make_unique<char[]>(len);
-		memcpy(p.get(), other.p.get(), len);
+	p.reset();
+	p = std::make_unique<char[]>(len);
+	memcpy(p.get(), other.p.get(), len);
 
-		if (관찰) {
-			std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
-				id, "복사 생성자", len, (void*)this, (void*)p.get());
-		}
+	if (관찰) {
+		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
+			id, "복사 생성자", len, (void*)this, (void*)p.get());
+	}
 }
 
-STRING& STRING::operator=(const STRING& other) 
+STRING& STRING::operator=(const STRING& other)
 {
 	if (this == &other)
 		return *this;
@@ -76,7 +76,7 @@ STRING& STRING::operator=(const STRING& other)
 
 //이동생성과 이동할당연산자 
 STRING::STRING(STRING&& other)
-	:id{++gid}, len{other.len }
+	:id{ ++gid }, len{ other.len }
 {
 	p.reset(other.p.release());
 	other.len = 0;
@@ -84,7 +84,7 @@ STRING::STRING(STRING&& other)
 	//*this = other;
 
 	//other.p.release(); //필요없지만 안전을 위해 // 무효과
-	
+
 	if (관찰) {
 		std::println("[{:8}] - {:<20} 자원수:{:<6} 주소:{:>16}, 자원의 주소:{:>16}",
 			id, "이동 생성자", len, (void*)this, (void*)p.get());
@@ -114,7 +114,7 @@ bool STRING::operator<(const STRING& other) const
 }
 
 size_t STRING::size() const
-{ 
+{
 	return len;
 }
 
@@ -128,11 +128,10 @@ std::ostream& operator<<(std::ostream& os, const STRING& str)
 
 std::istream& operator>>(std::istream& is, STRING& str)
 {
-	
 	std::string s;
 	is >> s;
 
-	//str.p.release();
+	str.p.release();
 	str.p = std::make_unique<char[]>(s.size());
 	str.len = s.size();
 	memcpy(str.p.get(), s.data(), str.len);

@@ -12,7 +12,6 @@
 //표준 std::string 과 유사한 동작을 하는 클래스
 class STRING {
 public:
-
 	
 	STRING();                         //2025.4.8
 	~STRING();                //전혀 작성할 필요가 없는 함수 인데 관찰을 위해서 코딩하였다

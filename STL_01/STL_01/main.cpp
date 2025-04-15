@@ -1,65 +1,47 @@
+ï»¿// ------------------------------------------------------------
+//  - 4 / 15 -
 // ------------------------------------------------------------
-//  - 4 / 10 -
+// ì¤‘ê°„ê³ ì‚¬(30) 4/24 ëª©
+// ê³¼ì œ(30) 4/10 ê³¼ì œì„¤ëª…
 // ------------------------------------------------------------
-// Áß°£°í»ç(30) 4/24 ¸ñ
-// °úÁ¦(30) 4/10 °úÁ¦¼³¸í
+// class STRING - STL ì •ì‹ ì»¨í…Œì´ë„ˆì²˜ëŸ¼ ë™ì‘í•˜ëŠ” ìë£Œêµ¬ì¡°
+// 
+// STL ì»¨í…Œì´ë„ˆë“¤ì´ë€ë€ Containers are objects that store other objects.
+// í´ë˜ìŠ¤ë¡œ ë§Œë“  ê°ì²´,ë‹¤ë¥¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥í•  ìˆ˜ ìˆëŠ” ì˜¤ë¸Œì íŠ¸
+// array<T,N>
 // ------------------------------------------------------------
-// class STRING - STL Á¤½Ä ÄÁÅ×ÀÌ³ÊÃ³·³ µ¿ÀÛÇÏ´Â ÀÚ·á±¸Á¶
-// ------------------------------------------------------------
-
-/*
-oop -> Æ¯Á¤ Å¸ÀÔÀ»À§ÇÑ ÄÚµù
-generic -> Å¸ÀÔ°ú °ü·Ã¾ø´Â ÄÚµù
-*/
 
 #include <iostream>
-#include <array>
-#include <algorithm>
-#include <fstream>
-#include "STRING.h"
+#include<vector>
+#include<array>
 
+#include "STRING.h"
 #include "save.h"
 using namespace std;
 
-extern bool °üÂû;             //°üÂûÇÏ°í ½ÍÀ¸¸é true ·Î
+extern bool ê´€ì°°;           //ê´€ì°°í•˜ê³  ì‹¶ìœ¼ë©´ true ë¡œ
 
-//¹®Á¦: "main.cpp"¿¡ ÀÖ´Â ´Ü¾î(°ø¹éÀ¸·Î ºĞ¸®µÈ charÀÇ ÁıÇÕ)¸¦ ¸ğµÎ ¸Ş¸ğ¸®¿¡ ÀúÀåÇÏ¶ó
-//´Ü¾î¸¦ 50°³¸¸ ÀĞ´Â´Ù
-// ´Ü¾î¸¦ ±æÀÌ±âÁØ ¿À¸§Â÷¼øÀ¸·Î Á¤·ÄÇÏ¶ó
-//Á¤·ÄÇÑ ´Ü¾î¸¦ ¸ğµÎ Ãâ·ÂÇÏ¶ó
-
-array<STRING, 50 > words;
+vector<int> v{ 1,2,3 };
 
 //--------
 int main()
 //--------
 {
-	STRING s;
-	//string s;
 
-	//°üÂû = 1;
-	ifstream in{ "main.cpp" };
-	if (not in)
-		return 0;
+	/*vector<int>* v = new vector<int>{ 1,2,3 }; //í”„ë¦¬ìŠ¤í† ì–´
+	cout << "vì˜ í¬ê¸° - " << sizeof *v << endl;
+	cout << "vì˜ ì£¼ì†Œ - " << addressof( *v) << endl;
+	cout << "vì˜ íƒ€ì… - " << typeid(*v).name() << endl;*/
 
-	for (STRING& word : words) {
-		in >> word;
+	vector<int> v { 1, 2, 3 };
+
+	v.push_back(4);
+
+	for (int num : v) {
+		cout << num << endl;
 	}
-	for (const STRING& word : words) {
-		cout << word << endl;
-	}
-	//for (const auto& word : words) cout << word << " (" << word.size() << ")\n";
-
-	/*sort(words.begin(), words.end(), [](const STRING& lhs, const STRING& rhs){
-		return lhs.size() < rhs.size(); });*/
-	std::sort(words.begin(), words.end());   //±âº»Á¤·Ä -> , ¶Ç´Â lese{} ÀÌ¿ë
-
-	for (const STRING& word : words) {
-		cout << word <<endl;
-	}
-
 	
 
-	//save("main.cpp");
+	save("main.cpp");
 	//save("STRING.cpp");
 }

@@ -16,7 +16,7 @@ void save(std::string_view fileName) {
 	}
 
 
-	std::string WriteFile{ "2025 1학기 STL 6주차 강의저장.txt" };
+	std::string WriteFile{ "2025 1학기 STL 8주차 강의저장.txt" };
 	std::ofstream out{ WriteFile , std::ios::app }; //검사 필요x , 파일이 깨졌을 때 자동으로 새로 만듬
 
 	std::cout << WriteFile << " 에 " << fileName << " - " 
@@ -27,13 +27,14 @@ void save(std::string_view fileName) {
 
 	auto utc = std::chrono::system_clock::to_time_t(now); //utc시간으로 변경한다
 	auto lt = std::localtime(&utc);  //지역시간으로 변경
-	auto old = out.imbue(std::locale("ko_KR"));  //out지역을 한국으로
+	//auto old = out.imbue(std::locale("ko_KR"));  //out지역을 한국으로
 	out << '\n' << '\n';
 	out << "======================================" << '\n';
-	out << "저장한 시간: " << std::put_time(lt, "%c %A") << '\n';
+	out << "Save Time: ";
+	out << std::put_time(lt, "%c %A") << "\n";
 	out << "======================================" << '\n';
 	out << '\n';
-	out.imbue(old);
+	//out.imbue(old);
 
 	std::copy(std::istreambuf_iterator{ in }, {}, std::ostreambuf_iterator{ out }); //효율적 한줄로 처리 가능
 
