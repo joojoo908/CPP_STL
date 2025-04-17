@@ -25,20 +25,12 @@ extern bool 관찰;           //관찰하고 싶으면 true 로
 int main()
 //--------
 {
+	관찰 = 1;
+	vector<STRING> v;
+	v.emplace_back("1"); //벡터에서 자체적으로 생성
+	v.emplace_back(STRING{"123"}); //이렇게 쓰지 마라
+		
+	관찰 = 0;
 	
-	vector<int> v;
-
-	for(int i=0;i<10;++i){
-		cout << "현재 원소의 갯수-" << v.size() << endl;
-		cout << "재할당 없이 저장할 수 있는 원소의 갯수-" << v.capacity() << endl;
-		cout << "벡터가 관리하는 메모리의 시작번지-" << v.data() << endl;
-
-		v.push_back(i+1);
-		cout << endl;
-	}
-	cout << "현재 원소의 갯수-" << v.size() << endl;
-	cout << "재할당 없이 저장할 수 있는 원소의 갯수-" << v.capacity() << endl;
-	cout << "벡터가 관리하는 메모리의 시작번지-" << v.data() << endl;
-
 	save("main.cpp");
 }
