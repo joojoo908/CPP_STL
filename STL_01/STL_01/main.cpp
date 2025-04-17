@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 4 / 15 -
+//  - 4 / 17 -
 // ------------------------------------------------------------
 // 중간고사(30) 4/24 목
 // 과제(30) 4/10 과제설명
@@ -13,7 +13,6 @@
 
 #include <iostream>
 #include<vector>
-#include<array>
 
 #include "STRING.h"
 #include "save.h"
@@ -21,27 +20,25 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-vector<int> v{ 1,2,3 };
-
+//벡터가 어떻게 free-store 메모리를 관리하는지  알아본다 
 //--------
 int main()
 //--------
 {
-
-	/*vector<int>* v = new vector<int>{ 1,2,3 }; //프리스토어
-	cout << "v의 크기 - " << sizeof *v << endl;
-	cout << "v의 주소 - " << addressof( *v) << endl;
-	cout << "v의 타입 - " << typeid(*v).name() << endl;*/
-
-	vector<int> v { 1, 2, 3 };
-
-	v.push_back(4);
-
-	for (int num : v) {
-		cout << num << endl;
-	}
 	
+	vector<int> v;
+
+	for(int i=0;i<10;++i){
+		cout << "현재 원소의 갯수-" << v.size() << endl;
+		cout << "재할당 없이 저장할 수 있는 원소의 갯수-" << v.capacity() << endl;
+		cout << "벡터가 관리하는 메모리의 시작번지-" << v.data() << endl;
+
+		v.push_back(i+1);
+		cout << endl;
+	}
+	cout << "현재 원소의 갯수-" << v.size() << endl;
+	cout << "재할당 없이 저장할 수 있는 원소의 갯수-" << v.capacity() << endl;
+	cout << "벡터가 관리하는 메모리의 시작번지-" << v.data() << endl;
 
 	save("main.cpp");
-	//save("STRING.cpp");
 }
