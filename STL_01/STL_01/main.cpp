@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include<vector>
+#include <list>
 #include<algorithm>
 
 #include "STRING.h"
@@ -26,30 +27,38 @@ extern bool 관찰;           //관찰하고 싶으면 true 로
 int main()
 //--------
 {
-	vector<int> v{ 1,2,3,4,5 };
-	////문제: v에서 3을 제거하라
-	//
-	////문제 : v에서 홀수를 제거하라
-
-	////auto/*vector<int>::iterator*/ new_end = remove(v.begin(), v.end(), [](int n) {return n & 1; }); //프러드킷
-	v.erase(remove(v.begin(), v.end(), [](int n) {return n & 1; }), v.end());
-
-	//erase_if(v, [](int n) {return n & 1; });
-
-	for (int num : v) {
-		cout << num << endl;
-	}
-	cout << endl;
-
 	/*
-	vector<STRING> v{ "1","22","333","4444","55555" };
+	vector<STRING> v;
+	v.reserve(10);
+	v.emplace_back("1");
+	v.emplace_back("22");
+	v.emplace_back("4444");
+	v.emplace_back("55555");
+	//v.assign({ "1","22","4444","55555" });
 
+	// 문제 v의 22와  4444 사이에 333을 삽입하라
+	관찰 = 1;
+	v.insert(v.begin() + 2, "333"); //제공하지만 절대하면 안됨
+	v.emplace(v.begin() + 2, "333"); //아까보단 나음
+	관찰 = 0;
+	*/
+	
+	
+	list<STRING> v{ "1","22","333","4444","55555" };
+	//리스트는 공간예약이 필요없다
+
+	
 	//문제 : v에서 333을 제거하라
-	erase(v, "333");
+	v.remove("333");
+	//v.erase(remove(v.begin(),v.end(),"333"),v.end()); //리스트에서는 이러면 안된다
+
+	관찰 = 1;
+	v.emplace(++++v.begin(), "333");
+	관찰 = 0;
 
 	for (const STRING& s : v) {
 		cout << s << endl;
-	}*/
+	}
 
 	//save("main.cpp");
 }
