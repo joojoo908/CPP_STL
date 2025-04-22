@@ -25,8 +25,9 @@ public:
 	STRING(STRING&&);
 	STRING& operator=(STRING&&);
 
-	//연산자들
-	bool operator<(const STRING& other) const;   //2025.4.10
+	//관계 연산자들(relative ops) -총 6개
+	bool operator<(const STRING& rhs) const;   //2025.4.10
+	bool operator==(const STRING& rhs) const;   //2025.4.22
 
 	size_t size() const;
 

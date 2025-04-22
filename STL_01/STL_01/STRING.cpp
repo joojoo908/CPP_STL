@@ -107,10 +107,19 @@ STRING& STRING::operator=(STRING&& other)
 	return *this;
 }
 
-//연산자들
-bool STRING::operator<(const STRING& other) const
+//관계 연산자들(relative ops) -총 6개
+bool STRING::operator<(const STRING& rhs) const
 {
-	return len < other.len;
+	return len < rhs.len;
+}
+bool STRING::operator==(const STRING& rhs) const
+{
+	if (len != rhs.len) return 0;
+
+	for (int i = 0; i < len; ++i) {
+		if (p[i] != rhs.p[i]) return 0;
+	}
+	return 1;
 }
 
 size_t STRING::size() const

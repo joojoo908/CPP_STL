@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 4 / 17 -
+//  - 4 / 22 -
 // ------------------------------------------------------------
 // 중간고사(30) 4/24 목
 // 과제(30) 4/10 과제설명
@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include<vector>
+#include<algorithm>
 
 #include "STRING.h"
 #include "save.h"
@@ -25,12 +26,31 @@ extern bool 관찰;           //관찰하고 싶으면 true 로
 int main()
 //--------
 {
-	관찰 = 1;
-	vector<STRING> v;
-	v.emplace_back("1"); //벡터에서 자체적으로 생성
-	v.emplace_back(STRING{"123"}); //이렇게 쓰지 마라
-		
-	관찰 = 0;
-	
+	//vector<int> v{ 1,2,3,4,5 };
+
+	////문제: v에서 3을 제거하라
+	//
+	////문제 : v에서 홀수를 제거하라
+
+	////auto/*vector<int>::iterator*/ new_end = remove(v.begin(), v.end(), [](int n) {return n & 1; }); //프러드킷
+	////v.erase(new_end, v.end()); 
+
+	//erase_if(v, [](int n) {return n & 1; });
+
+	//for (int num : v) {
+	//	cout << num << endl;
+	//}
+	//cout << endl;
+
+
+	vector<STRING> v{ "1","22","333","4444","55555" };
+
+	//문제 : v에서 333을 제거하라
+	erase(v, "333");
+
+	for (const STRING& s : v) {
+		cout << s << endl;
+	}
+
 	save("main.cpp");
 }
