@@ -1,0 +1,288 @@
+
+
+======================================
+Save Time: 04/29/25 16:52:21 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 4 / 29 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// 
+// STL 컨테이너들이란란 Containers are objects that store other objects.
+// 클래스로 만든 객체,다른 오브젝트를 저장할 수 있는 오브젝트
+// array<T,N>
+// vector<T>	- dynamic(run-time) array
+// ------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <list>
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+int main()
+//--------
+{
+	
+	vector<STRING> v{ "1","22","333","4444","55555" }; //임시객체를 만들어서 복사해서 생성한다
+	관찰 = 1;
+	erase(v, "333"); //씬태틱 슈가 (포장)
+	관찰 = 0;
+
+
+	for (const STRING& s : v) {
+		cout << s << endl;
+	}
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/01/25 11:02:42 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 4 / 29 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// 
+// STL 컨테이너들이란란 Containers are objects that store other objects.
+// 클래스로 만든 객체,다른 오브젝트를 저장할 수 있는 오브젝트
+// array<T,N>
+// vector<T>	- dynamic(run-time) array , 원소에 엑세스 하는 시간이 O(1)
+// deque<T>		
+// list<T>		- node 기반 / 아무데서나 insert/delete 동작이 O(1)
+// ------------------------------------------------------------
+
+#include <iostream>
+#include <deque>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+int main()
+//--------
+{
+	
+	deque<int> d{1,2,3,4 };
+	d.push_back(5);
+	//deque의 원소 주소 출력
+	for (int& num : d) {
+		cout << addressof(num) << endl;
+	}
+	
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/01/25 11:18:29 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 4 / 29 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// 
+// STL 컨테이너들이란란 Containers are objects that store other objects.
+// 클래스로 만든 객체,다른 오브젝트를 저장할 수 있는 오브젝트
+// array<T,N>
+// vector<T>	- dynamic(run-time) array , 원소에 엑세스 하는 시간이 O(1)
+// deque<T>		
+// list<T>		- node 기반 / 아무데서나 insert/delete 동작이 O(1)
+// ------------------------------------------------------------
+
+#include <iostream>
+#include <deque>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+class Test {
+	char x[1000000];
+};
+
+int main()
+//--------
+{
+	
+	//vector와 deque 이 얼마 만큼 인트를 담을 수 있는지 알아보자
+
+	{
+		vector<Test>	v;
+		try{
+			while (1) {
+				v.emplace_back();
+			}
+		}
+		catch (...) {
+			cout << "벡터가 담을 수 있는 int 수" << v.size();
+		}
+	}
+
+	
+	deque<int>	d;
+	//cout << "촤대개수 - " << v.max_size() << endl;
+	//cout << "촤대개수 - " << d.max_size() << endl;
+	
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/01/25 11:21:02 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 4 / 29 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// 
+// STL 컨테이너들이란란 Containers are objects that store other objects.
+// 클래스로 만든 객체,다른 오브젝트를 저장할 수 있는 오브젝트
+// array<T,N>
+// vector<T>	- dynamic(run-time) array , 원소에 엑세스 하는 시간이 O(1)
+// deque<T>		
+// list<T>		- node 기반 / 아무데서나 insert/delete 동작이 O(1)
+// ------------------------------------------------------------
+
+#include <iostream>
+#include <deque>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+class Test {
+	char x[1000000];
+};
+
+int main()
+//--------
+{
+	
+	//vector와 deque 이 얼마 만큼 인트를 담을 수 있는지 알아보자
+
+	{
+		vector<Test>	v;
+		cout << "촤대개수 - " << v.max_size() << endl;
+		try{
+			/*while (1) {
+				v.emplace_back();
+			}*/
+		}
+		catch (...) {
+			cout << "벡터가 담을 수 있는 int 수" << v.size(); // 27310
+		}
+	}
+
+	{
+		deque<Test>	d;
+		cout << "촤대개수 - " << d.max_size() << endl;
+		try {
+			while (1) {
+				d.emplace_back();
+			}
+		}
+		catch (...) {
+			cout << "덱 담을 수 있는 int 수" << d.size(); // 
+		}
+	}
+	
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/01/25 11:21:10 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 4 / 29 -
+// ------------------------------------------------------------
+// 중간고사(30) 4/24 목
+// 과제(30) 4/10 과제설명
+// ------------------------------------------------------------
+// class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
+// 
+// STL 컨테이너들이란란 Containers are objects that store other objects.
+// 클래스로 만든 객체,다른 오브젝트를 저장할 수 있는 오브젝트
+// array<T,N>
+// vector<T>	- dynamic(run-time) array , 원소에 엑세스 하는 시간이 O(1)
+// deque<T>		
+// list<T>		- node 기반 / 아무데서나 insert/delete 동작이 O(1)
+// ------------------------------------------------------------
+
+#include <iostream>
+#include <deque>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+class Test {
+	char x[1000000];
+};
+
+int main()
+//--------
+{
+	
+	//vector와 deque 이 얼마 만큼 인트를 담을 수 있는지 알아보자
+
+	{
+		vector<Test>	v;
+		cout << "촤대개수 - " << v.max_size() << endl;
+		try{
+			/*while (1) {
+				v.emplace_back();
+			}*/
+		}
+		catch (...) {
+			cout << "벡터가 담을 수 있는 int 수" << v.size(); // 27310
+		}
+	}
+
+	{
+		deque<Test>	d;
+		cout << "촤대개수 - " << d.max_size() << endl;
+		try {
+			/*while (1) {
+				d.emplace_back();
+			}*/
+		}
+		catch (...) {
+			cout << "덱 담을 수 있는 int 수" << d.size(); // 46998
+		}
+	}
+	
+	save("main.cpp");
+}
