@@ -42,23 +42,17 @@ int main()
 	list<STRING> cont{ istream_iterator<STRING>{in} , {} };
 	
 
-	for (const STRING& ss : cont) {
+	/*for (const STRING& ss : cont) {
 		cout << ss << endl;
-	}
-	//문제 : 단어를 입력받아 cont에 있는지 출력한다
-	//있다면 처음부터 셌을떄 몇 번째 단어인지
+	}*/
+	//문제 : 리스트에 있는 단어 중에서 길이가 5인 것만 화면에 출력하라
 
-	cout << "찾을 단어는?:";
-	STRING word;
-	cin >> word;
+	copy_if(cont.begin(), cont.end(), ostream_iterator<STRING>{cout, "\n"}, [](const STRING& s) {return 5 == s.size(); }); //알고리즘은 predicate 으로 조건을 줄 수 있다.
 
-	auto pos = find(cont.begin(), cont.end(), word);
-	if (pos == cont.end()) {
-		cout << word << "는 리스트에 없는 단어입니다.";
-	}
-	else {
-		cout<< distance(cont.begin(), pos)+1 <<"번째 단어입니다.";
-	}
+	/*for (const STRING& ss : cont) {
+		if(ss.size() == 5)
+			cout << ss << endl;
+	}*/
 	
 	//save("main.cpp");
 }
