@@ -132,6 +132,16 @@ size_t STRING::size() const
 	return len;
 }
 
+char* STRING::begin()
+{
+	return &p[0];
+}
+
+char* STRING::end()
+{
+	return p.get() + len;
+}
+
 std::ostream& operator<<(std::ostream& os, const STRING& str)
 {
 	for (int i = 0; i < str.len; ++i) {

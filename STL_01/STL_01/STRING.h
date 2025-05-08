@@ -30,6 +30,9 @@ public:
 	bool operator==(const STRING& rhs) const;   //2025.4.22
 
 	size_t size() const;
+	//2025.5.8
+	char* begin();
+	char* end();
 
 private:
 	size_t len;
