@@ -1,8 +1,7 @@
 ﻿// ------------------------------------------------------------
-//  - 4 / 29 -
+//  - 5 / 08 -
 // ------------------------------------------------------------
-// 중간고사(30) 4/24 목
-// 과제(30) 4/10 과제설명
+// 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
 // class STRING - STL 정식 컨테이너처럼 동작하는 자료구조
 // 
@@ -20,6 +19,7 @@
 #include <list>
 #include <ranges>
 #include <algorithm>
+#include <fstream>
 
 #include "STRING.h"
 #include "save.h"
@@ -34,23 +34,30 @@ class Test {
 int main()
 //--------
 {
-	list<int> cont{ 1,3,5,7,9,2,4,6,8,10 };
-
-	//리스트의 원소를 오름차순으로 정렬 후 출력
-	
-	//list<int>::iterator beg = cont.begin(); //이터레이터는 반복자,포인터와 유사한 역할
-	auto beg = cont.begin();
-	++beg; // =beg.operator++();
-	for (auto i = beg; i != cont.end(); ++i) {
-		cout << *i << endl;
+	//문제 : "main.cpp"의 단어를 list에 저장하라
+	ifstream in{ "STRING.cpp" };
+	if (!in) {
+		return 1;
 	}
-	cout << endl;
+	list<STRING> cont{ istream_iterator<STRING>{in} , {} };
+	
 
-	cont.sort();
-	//sort(cont);
+	for (const STRING& ss : cont) {
+		cout << ss << endl;
+	}
+	//문제 : 단어를 입력받아 cont에 있는지 출력한다
+	//있다면 처음부터 셌을떄 몇 번째 단어인지
 
-	for (auto i = cont.begin(); i != cont.end(); ++i) {
-		cout << *i << endl;
+	cout << "찾을 단어는?:";
+	STRING word;
+	cin >> word;
+
+	auto pos = find(cont.begin(), cont.end(), word);
+	if (pos == cont.end()) {
+		cout << word << "는 리스트에 없는 단어입니다.";
+	}
+	else {
+		cout<< distance(cont.begin(), pos)+1 <<"번째 단어입니다.";
 	}
 	
 	//save("main.cpp");
