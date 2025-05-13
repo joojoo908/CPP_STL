@@ -132,15 +132,35 @@ size_t STRING::size() const
 	return len;
 }
 
-char* STRING::begin()
+char* STRING::begin() const
 {
 	return &p[0];
 }
 
-char* STRING::end()
+char* STRING::end() const
 {
 	return p.get() + len;
 }
+
+STRING_Reverce_Iterator STRING::rbegin() const
+{
+	return p.get() + len;
+}
+
+STRING_Reverce_Iterator STRING::rend() const
+{
+	return &p[0]-1;
+}
+
+//std::reverse_iterator<char*> STRING::rbegin() const
+//{
+//	return std::reverse_iterator<char*>(end());
+//}
+//
+//std::reverse_iterator<char*> STRING::rend() const
+//{
+//	return std::reverse_iterator<char*>(begin());
+//}
 
 std::ostream& operator<<(std::ostream& os, const STRING& str)
 {

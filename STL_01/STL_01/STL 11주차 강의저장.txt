@@ -1,3 +1,9 @@
+
+
+======================================
+Save Time: 05/13/25 15:50:56 Tuesday
+======================================
+
 ﻿// ------------------------------------------------------------
 //  - 5 / 13 -
 // ------------------------------------------------------------
@@ -6,15 +12,12 @@
 // iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
 //			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
 //			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
-// 
-// 역방향 반복자는 반드시 class가 되어야 한다.
 // ------------------------------------------------------------
 
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <span>
-#include <vector>
 
 #include "STRING.h"
 #include "save.h"
@@ -25,11 +28,14 @@ extern bool 관찰;           //관찰하고 싶으면 true 로
 int main()
 //--------
 {
-	STRING s{ "2025 5 13"};
+	
+	int a[10]{ 1,2,3,4,5,6,7,8,9,10 };
+
+	span<int> s{ a };
 	
 	for (auto i = s.rbegin(); i != s.rend(); ++i) { 
 		cout << *i << endl;
 	}
 
-	//save("main.cpp");
+	save("main.cpp");
 }
