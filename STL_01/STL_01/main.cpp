@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 5 / 13 -
+//  - 5 / 15 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
@@ -8,13 +8,19 @@
 //			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
 // 
 // 역방향 반복자는 반드시 class가 되어야 한다.
+// 
 // ------------------------------------------------------------
 
 #include <iostream>
-#include <iterator>
-#include <string>
-#include <span>
+//#include <iterator>
+
+#include <array>
 #include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include <algorithm>
 
 #include "STRING.h"
 #include "save.h"
@@ -22,14 +28,34 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
+template<class T>
+void f(T) 
+{
+	//T*가 어떤 종류의 반복자인가 알고 싶다면
+	cout<< typeid(iterator_traits<T>::iterator_category).name() << endl;
+	//cout << "반복자의 타입 - " << typeid(T::iterator_category).name() << endl;
+}
+
 int main()
 //--------
 {
-	STRING s{ "2025 5 13"};
-	
-	for (auto i = s.rbegin(); i != s.rend(); ++i) { 
-		cout << *i << endl;
-	}
+	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
 
-	//save("main.cpp");
+	array<char, 0>a;
+	f(a.begin());
+	
+	f(vector<int>::iterator{});
+	f(ostream_iterator<char>{cout});
+	f(istream_iterator<char>{cin});
+
+	f(forward_list<int>{}.begin());
+	cout << endl;
+	f(list<int>::reverse_iterator{});
+	f(deque<int>{}.begin());
+	f(vector<int>{}.cbegin());
+
+	char* p;
+	f(p);
+
+	save("main.cpp");
 }

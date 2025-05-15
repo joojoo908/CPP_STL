@@ -39,3 +39,231 @@ int main()
 
 	save("main.cpp");
 }
+
+======================================
+Save Time: 05/13/25 16:45:26 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 13 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
+//			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
+//			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
+// 
+// 역방향 반복자는 반드시 class가 되어야 한다.
+// ------------------------------------------------------------
+
+#include <iostream>
+//#include <iterator>
+
+#include <array>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+void f(auto it) {
+	cout << "반복자의 타입" << typeid(it).name() << endl;
+
+}
+
+int main()
+//--------
+{
+	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
+
+	array<char, 0>a;
+	f(a.begin());
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/13/25 16:59:04 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 13 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
+//			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
+//			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
+// 
+// 역방향 반복자는 반드시 class가 되어야 한다.
+// ------------------------------------------------------------
+
+#include <iostream>
+//#include <iterator>
+
+#include <array>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T>
+void f(T) 
+{
+	cout << "반복자의 타입" << typeid(T::iterator_category).name() << endl;
+	
+}
+
+int main()
+//--------
+{
+	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
+
+	array<char, 0>a;
+	f(a.begin());
+	
+	f(vector<int>::iterator{});
+	f(ostream_iterator<char>{cout});
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/15/25 10:30:17 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 13 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
+//			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
+//			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
+// 
+// 역방향 반복자는 반드시 class가 되어야 한다.
+// ------------------------------------------------------------
+
+#include <iostream>
+//#include <iterator>
+
+#include <array>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T>
+void f(T) 
+{
+	cout << "반복자의 타입 - " << typeid(T::iterator_category).name() << endl;
+}
+
+int main()
+//--------
+{
+	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
+
+	array<char, 0>a;
+	f(a.begin());
+	
+	f(vector<int>::iterator{});
+	f(ostream_iterator<char>{cout});
+	f(istream_iterator<char>{cin});
+
+	f(forward_list<int>{}.begin());
+	cout << endl;
+	f(list<int>::reverse_iterator{});
+	f(deque<int>{}.begin());
+	f(vector<int>{}.cbegin());
+
+	/*char* p;
+	f(p);*/
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/15/25 10:53:41 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 15 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
+//			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
+//			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
+// 
+// 역방향 반복자는 반드시 class가 되어야 한다.
+// 
+// ------------------------------------------------------------
+
+#include <iostream>
+//#include <iterator>
+
+#include <array>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T>
+void f(T) 
+{
+	//T*가 어떤 종류의 반복자인가 알고 싶다면
+	cout<< typeid(iterator_traits<T>::iterator_category).name() << endl;
+	//cout << "반복자의 타입 - " << typeid(T::iterator_category).name() << endl;
+}
+
+int main()
+//--------
+{
+	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
+
+	array<char, 0>a;
+	f(a.begin());
+	
+	f(vector<int>::iterator{});
+	f(ostream_iterator<char>{cout});
+	f(istream_iterator<char>{cin});
+
+	f(forward_list<int>{}.begin());
+	cout << endl;
+	f(list<int>::reverse_iterator{});
+	f(deque<int>{}.begin());
+	f(vector<int>{}.cbegin());
+
+	char* p;
+	f(p);
+
+	save("main.cpp");
+}
