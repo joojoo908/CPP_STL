@@ -132,12 +132,12 @@ size_t STRING::size() const
 	return len;
 }
 
-char* STRING::begin() const
+STRING_Iterator STRING::begin() const
 {
 	return &p[0];
 }
 
-char* STRING::end() const
+STRING_Iterator STRING::end() const
 {
 	return p.get() + len;
 }

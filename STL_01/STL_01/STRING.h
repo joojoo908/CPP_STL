@@ -1,7 +1,8 @@
 //-----------------------------------------------------
 //STRING.h - std::string 과 유사한 클래스
 //           stl의 동작을 깊게 들여다 보기 위해
-//                                        2025.4.8
+//											2025.4.8
+// STRING의 반복자 타입을 만든다			2025.5.15
 //-----------------------------------------------------
 
 #pragma once
@@ -19,6 +20,37 @@ public:
 	bool operator==(const STRING_Reverce_Iterator& rhs) const {
 		return p == rhs.p;
 	}
+private:
+	char* p;
+};
+
+class STRING_Iterator {
+public:
+	//표준 반복자가 되려면 다음 5가지 타입을 정의하여야 한다.
+	using iterator_category = std::random_access_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using value_type = char;
+	using pointer = char*;
+	using reference = char&;
+
+	STRING_Iterator(char* p) :p{p}{}
+	//void operator++() { ++p; }
+	
+	STRING_Iterator& operator++() { ++p; return *this; }
+	STRING_Iterator& operator--() { --p; return *this; }
+	//STRING_Iterator operator++(int) { STRING_Iterator tmp = *this; ++p; return tmp; }
+	reference operator*() const { return *p; }
+
+	bool operator==(const STRING_Iterator& rhs) const {return p == rhs.p;}
+	//bool operator!=(const STRING_Iterator& rhs) const { return p != rhs.p; }
+	
+	bool operator<(const STRING_Iterator& rhs) const { return p < rhs.p; }
+
+	//STRING_Iterator& operator+=(difference_type n) { p += n; return *this; }
+	STRING_Iterator operator+(difference_type n) const { return STRING_Iterator(p + n); }
+	STRING_Iterator operator-(difference_type n) const { return STRING_Iterator(p - n); }
+	difference_type operator-(const STRING_Iterator& rhs) const { return p - rhs.p; }
+
 private:
 	char* p;
 };
@@ -44,9 +76,9 @@ public:
 	bool operator==(const STRING& rhs) const;   //2025.4.22
 
 	size_t size() const;
-	//2025.5.8
-	char* begin() const;
-	char* end() const;
+	//2025.5.15 리턴타입을 클래스로
+	STRING_Iterator begin() const;
+	STRING_Iterator end() const;
 	//2025.5.13
 	STRING_Reverce_Iterator rbegin()const;
 	STRING_Reverce_Iterator rend()const;

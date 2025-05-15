@@ -7,18 +7,14 @@
 //			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
 //			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
 // 
-// 역방향 반복자는 반드시 class가 되어야 한다.
+// 표준 반복자가 되고 싶다면 지켜야할 약속들이 있다.
+// **, ++, ==
+// 제공해야할 타입 5가지
+// iterator_category등 5가지
 // 
 // ------------------------------------------------------------
 
 #include <iostream>
-//#include <iterator>
-
-#include <array>
-#include <vector>
-#include <deque>
-#include <list>
-#include <forward_list>
 
 #include <algorithm>
 
@@ -28,34 +24,13 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-template<class T>
-void f(T) 
-{
-	//T*가 어떤 종류의 반복자인가 알고 싶다면
-	cout<< typeid(iterator_traits<T>::iterator_category).name() << endl;
-	//cout << "반복자의 타입 - " << typeid(T::iterator_category).name() << endl;
-}
-
 int main()
 //--------
 {
-	//문제 : 함수 f는 반복자를 인자로 받아 어떤 종류인지 출력한다
+	STRING s{ "2025 5 15" };
+	sort(s.begin(), s.end());
+	cout << s << endl;
 
-	array<char, 0>a;
-	f(a.begin());
-	
-	f(vector<int>::iterator{});
-	f(ostream_iterator<char>{cout});
-	f(istream_iterator<char>{cin});
 
-	f(forward_list<int>{}.begin());
-	cout << endl;
-	f(list<int>::reverse_iterator{});
-	f(deque<int>{}.begin());
-	f(vector<int>{}.cbegin());
-
-	char* p;
-	f(p);
-
-	save("main.cpp");
+	//save("main.cpp");
 }
