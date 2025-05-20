@@ -1,0 +1,256 @@
+
+
+======================================
+Save Time: 05/20/25 16:52:52 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 20 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
+// ------------------------------------------------------------
+
+#include <iostream>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+int main()
+//--------
+{
+	STRING s{ "the quick brown fox jumps over the lazy dog" };
+	//문제 : 숫자를 입력받아 그 숫자가 있나 없나 알려주자
+
+	cout << "찾을 숫자는?";
+	char c;
+	cin >> c;
+	auto p = find( s.begin(), s.end(),c);
+	if (p != s.end()) {
+		cout << c << " 를 찾았다." << endl;
+	}
+
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/20/25 16:53:09 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 20 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
+// ------------------------------------------------------------
+
+#include <iostream>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+int main()
+//--------
+{
+	STRING s{ "2025 5 20" };
+	//문제 : 숫자를 입력받아 그 숫자가 있나 없나 알려주자
+
+	cout << "찾을 숫자는?";
+	char c;
+	cin >> c;
+	auto p = find( s.begin(), s.end(),c);
+	if (p != s.end()) {
+		cout << c << " 를 찾았다." << endl;
+	}
+
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/20/25 17:05:09 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 20 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
+// ------------------------------------------------------------
+
+#include <iostream>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T, class V>
+T my_find(T b, T e, V v) {
+	while (b != e) {
+		if (*b == v)return b;
+		++b;
+	}
+	return e;
+}
+
+int main()
+//--------
+{
+	STRING s{ "2025 5 20" };
+	//문제 : 숫자를 입력받아 그 숫자보다 1큰 숫자가 있나 없나 알려주자
+
+	cout << "찾을 숫자는?";
+	char c;
+	cin >> c;
+	auto p = my_find( s.begin(), s.end(),c);
+	if (p != s.end()) {
+		cout << c << " 를 찾았다." << endl;
+	}
+
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/20/25 17:14:48 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 20 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
+// ------------------------------------------------------------
+
+#include <iostream>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T, class V>
+T my_find(T b, T e, V v) {
+	while (b != e) {
+		if (*b == v)return b;
+		++b;
+	}
+	return e;
+}
+
+template<class T, class Pred>
+T my_find_if(T b, T e, Pred callable) {
+	for (; b != e; ++b) {
+		if (callable(*b))return b;
+	}
+	return b;
+}
+
+int main()
+//--------
+{
+	STRING s{ "2025 5 20" };
+	//문제 : s중에서 처음 나오는 홀수를 화면에 출력하라
+	auto p = my_find_if(s.begin(), s.end(), [](int n) {return n & 1; });
+	if (p != s.end()) {
+		cout << "첫 홀수는 :"<< *p << endl;
+	}
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/20/25 17:19:31 Tuesday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 20 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
+// ------------------------------------------------------------
+
+#include <iostream>
+
+#include <algorithm>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+template<class T, class V>
+T my_find(T b, T e, V v) {
+	while (b != e) {
+		if (*b == v)return b;
+		++b;
+	}
+	return e;
+}
+
+template<class T, class Pred>
+T my_find_if(T b, T e, Pred callable) {
+	for (; b != e; ++b) {
+		if (callable(*b))return b;
+	}
+	return b;
+}
+
+template<class T, class D>
+void my_copy(T b, T e, D d) {
+	while (b != e) {
+		*d = *b;
+		++b;
+		++d;
+	}
+}
+
+
+int main()
+//--------
+{
+	STRING s{ "2025 5 20" };
+	//문제 : s를 화면에 copy
+	my_copy(s.begin(), s.end(), ostream_iterator<char>{cout});
+
+	save("main.cpp");
+}

@@ -3,6 +3,7 @@
 //           stl의 동작을 깊게 들여다 보기 위해
 //											2025.4.8
 // STRING의 반복자 타입을 만든다			2025.5.15
+// sort가 요구하는 랜덤 반복자 연산			2025.5.20
 //-----------------------------------------------------
 
 #pragma once
@@ -28,7 +29,7 @@ class STRING_Iterator {
 public:
 	//표준 반복자가 되려면 다음 5가지 타입을 정의하여야 한다.
 	using iterator_category = std::random_access_iterator_tag;
-	using difference_type = std::ptrdiff_t;
+	using difference_type = std::ptrdiff_t; //포인터끼리의 연산
 	using value_type = char;
 	using pointer = char*;
 	using reference = char&;
@@ -37,22 +38,31 @@ public:
 	//void operator++() { ++p; }
 	
 	STRING_Iterator& operator++() { ++p; return *this; }
-	STRING_Iterator& operator--() { --p; return *this; }
-	//STRING_Iterator operator++(int) { STRING_Iterator tmp = *this; ++p; return tmp; }
 	reference operator*() const { return *p; }
-
 	bool operator==(const STRING_Iterator& rhs) const {return p == rhs.p;}
-	//bool operator!=(const STRING_Iterator& rhs) const { return p != rhs.p; }
 	
-	bool operator<(const STRING_Iterator& rhs) const { return p < rhs.p; }
-
+	//내가 추가
+	difference_type operator-(const STRING_Iterator& rhs) const { return p - rhs.p; }
+	STRING_Iterator& operator--() { --p; return *this; }
+	//bool operator<(const STRING_Iterator& rhs) const { return p < rhs.p; }
 	//STRING_Iterator& operator+=(difference_type n) { p += n; return *this; }
 	STRING_Iterator operator+(difference_type n) const { return STRING_Iterator(p + n); }
 	STRING_Iterator operator-(difference_type n) const { return STRING_Iterator(p - n); }
-	difference_type operator-(const STRING_Iterator& rhs) const { return p - rhs.p; }
+
+	//랜덤반복자가 제공하는 연산자 일부를 코딩하여 sort가 동작하도록
+	//ifference_type operator-(const STRING_Iterator& rhs) const { return p - rhs.p; }
+	//char& operator*() const { return *p; }
+	//STRING_Iterator operator--() { return --p; }
+	//STRING_Iterator() = default;
+	//STRING_Iterator operator+(difference_type n) const { return STRING_Iterator(p + n); }
+	//비교연산자는 6가지가 있다. < <= == >= > != , <=>
+	std::strong_ordering operator<=>(const STRING_Iterator& rhs) const { return p <=> rhs.p; } //operator==을 선언하면 동작
+	//std::strong_ordering operator<=>(const STRING_Iterator& rhs) const = default;
+	//STRING_Iterator operator-(difference_type n) const { return STRING_Iterator(p - n); }
+
 
 private:
-	char* p;
+	char* p{};
 };
 
 //표준 std::string 과 유사한 동작을 하는 클래스

@@ -1,17 +1,12 @@
 ﻿// ------------------------------------------------------------
-//  - 5 / 15 -
+//  - 5 / 20 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
-// iterator(반복자) - Iterators are a generalization of pointers // 포인터를 일반화 한것 but 포인터는 아님
-//			that allow a C++ program to work with different data structures(for example, containers and ranges) in a uniform manner. 
-//			서로 다른 자료구조에 대해 일관된 방식으로 작동하도록
-// 
-// 표준 반복자가 되고 싶다면 지켜야할 약속들이 있다.
-// **, ++, ==
-// 제공해야할 타입 5가지
-// iterator_category등 5가지
-// 
+// 반복자를 사용한 알고리즘 함수 작성
+// find
+// find_if
+// copy
 // ------------------------------------------------------------
 
 #include <iostream>
@@ -24,13 +19,39 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
+template<class T, class V>
+T my_find(T b, T e, V v) {
+	while (b != e) {
+		if (*b == v)return b;
+		++b;
+	}
+	return e;
+}
+
+template<class T, class Pred>
+T my_find_if(T b, T e, Pred callable) {
+	for (; b != e; ++b) {
+		if (callable(*b))return b;
+	}
+	return b;
+}
+
+template<class T, class D>
+void my_copy(T b, T e, D d) {
+	while (b != e) {
+		*d = *b;
+		++b;
+		++d;
+	}
+}
+
+
 int main()
 //--------
 {
-	STRING s{ "2025 5 15" };
-	sort(s.begin(), s.end());
-	cout << s << endl;
-
+	STRING s{ "2025 5 20" };
+	//문제 : s를 화면에 copy
+	my_copy(s.begin(), s.end(), ostream_iterator<char>{cout});
 
 	//save("main.cpp");
 }
