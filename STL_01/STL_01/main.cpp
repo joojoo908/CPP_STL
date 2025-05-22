@@ -20,16 +20,13 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-//이전에는 operator<() 가 기본 비교함수였다면 , set은 비교함수를 이용하여 원소들의 정렬상태를 유지한다.
-//현재는 less<>가 기본 비교함수이다.
-//less를 특수화 해서 STRING으로 스페셜라이즈
-
-
-
 int main()
 //--------
 {
-	set<STRING> s{ "2025년","5월","22일","연관컨테이너", "셋" ,"asdfa" };
+	//문제 : set<STRING>을 사용하여 키보드의 입력을 모두 저장하라
+	// 저장 이후에 컨테이너의 원소를 모두 출력하라
+	set<STRING> s{ istream_iterator<STRING>{cin} , {} }; //ctrl +z로 끝
+
 	for (const STRING& str : s)
 		cout << str << endl;
 

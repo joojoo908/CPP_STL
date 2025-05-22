@@ -11,15 +11,6 @@
 #include <iostream>
 #include <memory>
 
-//연관 컨테이너가 요구하는 비교 함수이다		2025.5.22
-template <>
-struct std::less<STRING> { //템플릿의 특수화
-	//사전식 비교
-	bool operator()(const STRING& lhs, const STRING& rhs)const {
-		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-	}
-};
-
 class STRING_Reverce_Iterator {
 public:
 	STRING_Reverce_Iterator(char* p) :p{ p } {};
@@ -89,6 +80,7 @@ public:
 	//이동생성과 이동할당연산자     //2025.4.8
 	STRING(STRING&&);
 	STRING& operator=(STRING&&);
+	//STRING& operator+(STRING&);
 
 	//관계 연산자들(relative ops) -총 6개
 	bool operator<(const STRING& rhs) const;   //2025.4.10
@@ -118,5 +110,16 @@ private:
 };
 
 
-
+//이전에는 operator<() 가 기본 비교함수였다면 , set은 비교함수를 이용하여 원소들의 정렬상태를 유지한다.
+//현재는 less<>가 기본 비교함수이다.
+//less를 특수화 해서 STRING으로 스페셜라이즈
+//연관 컨테이너가 요구하는 비교 함수이다		2025.5.22
+template <>
+struct std::less<STRING> { //템플릿의 특수화
+	//사전식 비교
+	bool operator()(const STRING& lhs, const STRING& rhs)const {
+		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+	//less를 사용하느 이유는 <=>으로 연산자를 오버로딩 했을 시 <가 존재하지 않을 수 있기 떄문에
+};
 
