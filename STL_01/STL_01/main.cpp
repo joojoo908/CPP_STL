@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 5 / 20 -
+//  - 5 / 22 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+#include <vector>
 #include <algorithm>
 
 #include "STRING.h"
@@ -38,8 +39,9 @@ T my_find_if(T b, T e, Pred callable) {
 
 template<class T, class D>
 void my_copy(T b, T e, D d) {
+	
 	while (b != e) {
-		*d = *b;
+		*d = *b; //-> back_inserter는 반복자 어뎁터(써진것은 같지만 실제로는 다른 일을 함 다른 예-역방향 반복자)
 		++b;
 		++d;
 	}
@@ -49,9 +51,16 @@ void my_copy(T b, T e, D d) {
 int main()
 //--------
 {
-	STRING s{ "2025 5 20" };
-	//문제 : s를 화면에 copy
-	my_copy(s.begin(), s.end(), ostream_iterator<char>{cout});
+	STRING s{ "1234567890" };
+	vector<char> v;
+	
+	//문제 : s의 내용을 my_copy를 이용해 vector에 옮겨라
+	copy(s.begin(), s.end(), back_inserter(v));
+	//inserter는 매우 특별한 반복자
 
-	//save("main.cpp");
+	for (char c : v) {
+		cout << c;
+	}
+
+	save("main.cpp");
 }
