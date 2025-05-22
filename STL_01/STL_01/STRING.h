@@ -11,6 +11,15 @@
 #include <iostream>
 #include <memory>
 
+//연관 컨테이너가 요구하는 비교 함수이다		2025.5.22
+template <>
+struct std::less<STRING> { //템플릿의 특수화
+	//사전식 비교
+	bool operator()(const STRING& lhs, const STRING& rhs)const {
+		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+};
+
 class STRING_Reverce_Iterator {
 public:
 	STRING_Reverce_Iterator(char* p) :p{ p } {};
@@ -107,4 +116,7 @@ private:
 
 
 };
+
+
+
 
