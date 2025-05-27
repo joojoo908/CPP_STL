@@ -94,6 +94,8 @@ public:
 	STRING_Reverce_Iterator rbegin()const;
 	STRING_Reverce_Iterator rend()const;
 
+	
+
 	/*std::reverse_iterator<char*> rbegin() const;
 	std::reverse_iterator<char*> rend() const;*/
 

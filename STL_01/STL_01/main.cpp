@@ -24,7 +24,7 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-// 문제 : 찾는 단어가 있는지
+// 문제 : 찾는 단어를 포함한 단어가 모두 몇개나 있는지
 
 int main()
 //--------
@@ -50,14 +50,23 @@ int main()
 		cout << str << endl;
 	cout << s.size() << endl;
 
+	cout << "셋의 크기 - " << sizeof(s);
+
 	while (true) {
 		cout << "찾을단어?";
 		STRING ss;
 		cin >> ss;
-		auto f = find(s.begin(), s.end(), ss);
-		cout << *f << endl;
-
+		int i =count_if(s.begin(), s.end(), [ss](const STRING& word) { //[ss] 람다 캡쳐 ,[=]모든걸 가져와라, [&]모든걸 래퍼런스로
+			auto p = search(word.begin(), word.end(), ss.begin(), ss.end());
+			if (p != word.end()) {
+				return true;
+			}
+			return false;
+		});
+		cout << i << "개" << endl;
 	}
+
+
 
 	//save("main.cpp");
 }
