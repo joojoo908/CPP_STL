@@ -9,7 +9,7 @@
 #pragma once
 
 #include <iostream>
-#include <memory>
+//#include <memory>
 
 class STRING_Reverce_Iterator {
 public:

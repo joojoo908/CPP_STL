@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 #include <print>
-#include <algorithm>
+//#include <algorithm>
 
 #include"STRING.h"
 
@@ -116,15 +116,15 @@ bool STRING::operator<(const STRING& rhs) const
 bool STRING::operator==(const STRING& rhs) const
 {
 	//lexicographical compair
-	/*
-	if (len != rhs.len) return 0;
+	
+	/*if (len != rhs.len) return 0;
 
 	for (int i = 0; i < len; ++i) {
 		if (p[i] != rhs.p[i]) return 0;
 	}
-	return 1;
-	*/
-	return std::equal(p.get(), p.get() + len, rhs.p.get(), rhs.p.get() + len);
+	return 1;*/
+	
+	return std::equal(p.get(), p.get() + len, rhs.p.get(), rhs.p.get() + rhs.len);
 }
 
 size_t STRING::size() const
