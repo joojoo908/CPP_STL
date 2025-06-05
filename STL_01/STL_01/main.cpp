@@ -6,6 +6,8 @@
 // associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
 // set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
 // map / multimap - pair<key,value>
+// 
+// Unordered Associative container - Hash 구조
 // ------------------------------------------------------------
 
 
@@ -18,52 +20,51 @@
 
 #include <iostream>
 
-#include <set>
-#include <algorithm>
-#include <fstream>
-#include <map>
-#include <random>
-#include <array>
+#include <unordered_set>
+#include <string>
+#include <print>
 
 #include "STRING.h"
 #include "save.h"
 using namespace std;
 
-default_random_engine dre;
-uniform_int_distribution uid{ 0,99'9999 };
-normal_distribution nd{ 0.0, 1.0 };
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-array<int, 10'0000> a;
+template<>
+struct hash<STRING> {
+	size_t operator()(const STRING& s) const {
+		//이미 잘 정의되어 있는 타입으로 바꿔 hash 값을 결정하면 된다.
+		//STRING을 std::string으로 바꾸면 가능
+		std::string str(s.begin(), s.end());
+		return hash<string>{}(str);
+	}
+};
 
-// a의 원소값은 노말한 분포인가?
-//a의 값을 10등분 해서 개수를 센 후 출력하라
 
 int main()
 //--------
 {
-  
-	for (int& i : a) {
-		double d = nd(dre);
-		d += 4;
-		d *= 12'5000;
-		i = (int)d;
+	unordered_set<STRING, std::hash<STRING> > us = { "1","22","333","4444" };
+
+	while (1) {
+		
+		//언오더드 셋의 메모리를 그대로 화면 출력한다
+		for (size_t i = 0; i < us.bucket_count(); ++i) {
+			print("[{:>3}] - ", i);
+			for (auto bi = us.begin(i); bi != us.end(i); ++bi) {
+				cout << " - " << *bi;
+			}
+			cout << endl;
+		}
+
+		cout << "추가할 string을 입력하시오";
+		STRING s;
+		cin >> s;
+		us.insert(s);
+
 	}
 
-	/*for (int i : a) {
-		cout << i << " ";
-	}*/
-
-	map<int, int> m;
-
-	for (int i : a) {
-		m[{i / 5'0000}]++;
-	}
-
-	for (auto [i1, i2] : m) {
-		cout << i1 << ":" << i2 << endl;
-	}
-
+	
 	//save("main.cpp");
 }
