@@ -372,3 +372,498 @@ int main()
 
 	//save("main.cpp");
 }
+
+======================================
+Save Time: 05/29/25 10:39:13 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 입력한 단어의 사용 횟수를 출력하시오
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	
+	cout << ms.size() << endl;
+
+	for (const STRING& word : ms) {
+		cout << word << " ";
+	}
+	cout << endl;
+
+	save("main.cpp");
+
+	while (true) {
+		cout << "찾을단어?";
+		STRING ss;
+		cin >> ss;
+		int i = count_if(ms.begin(), ms.end(), [ss](const STRING& word) { //[ss] 람다 캡쳐 ,[=]모든걸 가져와라, [&]모든걸 래퍼런스로
+			auto p = search(word.begin(), word.end(), ss.begin(), ss.end());
+			if (p != word.end()) {
+				return true;
+			}
+			return false;
+			});
+		cout << i << "개" << endl;
+	}
+
+	//save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 10:43:41 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 입력한 단어의 사용 횟수를 출력하시오
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	
+	cout << ms.size() << endl;
+
+	for (const STRING& word : ms) {
+		cout << word << " ";
+	}
+	cout << endl;
+
+	save("main.cpp");
+
+	while (true) {
+		cout << "찾을단어?";
+		STRING ss;
+		cin >> ss;
+		int i = count_if(ms.begin(), ms.end(), [ss](const STRING& word) { //[ss] 람다 캡쳐 ,[=]모든걸 가져와라, [&]모든걸 래퍼런스로
+			if (ss==word) return true;
+			return false;
+			});
+		cout << i << "개" << endl;
+	}
+
+	//save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 10:46:16 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 입력한 단어의 사용 횟수를 출력하시오
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	
+	cout << ms.size() << endl;
+
+	for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
+
+	save("main.cpp");
+
+	while (true) {
+		cout << "찾을단어?";
+		STRING ss;
+		cin >> ss;
+		
+		int i = ms.count(ss);
+		cout << i << "개" << endl;
+	}
+
+	//save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 11:08:59 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 입력한 단어의 사용 횟수를 출력하시오
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	
+	cout << ms.size() << endl;
+
+	for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
+
+	save("main.cpp");
+
+	while (true) {
+		cout << "찾을단어?";
+		STRING ss;
+		cin >> ss;
+		
+		int i = ms.count(ss);
+		cout << i << "개" << endl;
+
+		//set 에서 원소의 개수 구하기
+		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
+		//distance(pos.first,pos.second);
+		// auto [s,e] = ms.equal_range(ss); //structured binding
+		// distance(s,e);
+	}
+
+	//save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 11:39:36 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+//set 에서 원소의 개수 구하기
+		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
+		//distance(pos.first,pos.second);
+		// auto [s,e] = ms.equal_range(ss); //structured binding
+		// distance(s,e);
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include <map>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 알파벳을 소문자로 바꿔 모든 소문자의 출현 횟수를 출력하라
+//		a= 1242. b= 1234 ... z=12
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	cout << ms.size() << endl;
+
+	//for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
+
+	
+	map<char,size_t> m;
+
+	for (const STRING& word : ms) {
+		for (char abc : word) {
+			m[abc]++; // 연관배열 - associative array
+		}
+	}
+
+	for (auto [c, i] : m) {
+		cout << c << "-" << i << endl;
+	}
+
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 11:57:32 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+//set 에서 원소의 개수 구하기
+		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
+		//distance(pos.first,pos.second);
+		// auto [s,e] = ms.equal_range(ss); //structured binding
+		// distance(s,e);
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include <map>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 문서를 multiset<STRING> 에 저장하라
+// 알파벳을 소문자로 바꿔 모든 소문자의 출현 횟수를 출력하라
+//		a= 1242. b= 1234 ... z=12
+// 출현 횟수 순서로 횟수가 많은 것부터 작은 순서로 출력하라 
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	cout << ms.size() << endl;
+
+	//for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
+
+	
+	map<char,size_t> m;
+	
+
+	for (const STRING& word : ms) {
+		for (char abc : word) {
+			if(tolower(abc) &&isalpha(abc))
+				m[tolower(abc)]++; // 연관배열 - associative array
+		}
+	}
+
+	std::multimap<size_t, char ,greater<size_t>> reversed;
+	for (const auto& [key, value] : m) {
+		reversed.insert({ value, key });
+	}
+
+	
+	for (auto [i, c] : reversed) {
+		cout << c << "-" << i << endl;
+	}
+
+
+	save("main.cpp");
+}
+
+======================================
+Save Time: 05/29/25 12:06:08 Thursday
+======================================
+
+﻿// ------------------------------------------------------------
+//  - 5 / 29 -
+// ------------------------------------------------------------
+// 6월 19일 목요일 - 15주 2일 - 기말
+// ------------------------------------------------------------
+// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
+// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
+// map / multimap - pair<key,value>
+// ------------------------------------------------------------
+
+
+//set 에서 원소의 개수 구하기
+		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
+		//distance(pos.first,pos.second);
+		// auto [s,e] = ms.equal_range(ss); //structured binding
+		// distance(s,e);
+
+
+#include <iostream>
+
+#include <set>
+#include <ranges>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include <map>
+
+#include "STRING.h"
+#include "save.h"
+using namespace std;
+
+extern bool 관찰;           //관찰하고 싶으면 true 로
+
+// 문제 : 가장 많이 사용된 단어와 사용 횟수 순서대로 출력하시오
+// 
+
+int main()
+//--------
+{
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 0;
+
+	
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	cout << ms.size() << endl;
+
+	//for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
+
+	
+	map<STRING,size_t> m;
+	multimap<size_t,STRING,greater<size_t>> m_r;
+	
+	for (const STRING& word : ms) {
+		m[word]++; // 연관배열 - associative array
+	}
+	
+	for (auto [s, i] : m) {
+		cout << s << "-" << i << endl;
+	}
+
+	for (const auto& [key, value] : m) {
+		m_r.insert({ value, key });
+	}
+
+	for (auto [i, s] : m_r) {
+		cout << s << "-" << i << endl;
+	}
+
+	save("main.cpp");
+}

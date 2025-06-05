@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 5 / 27 -
+//  - 5 / 29 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
@@ -9,6 +9,12 @@
 // ------------------------------------------------------------
 
 
+//set 에서 원소의 개수 구하기
+		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
+		//distance(pos.first,pos.second);
+		// auto [s,e] = ms.equal_range(ss); //structured binding
+		// distance(s,e);
+
 
 #include <iostream>
 
@@ -17,6 +23,7 @@
 #include <algorithm>
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include "STRING.h"
 #include "save.h"
@@ -24,7 +31,8 @@ using namespace std;
 
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-// 문제 : 찾는 단어를 포함한 단어가 모두 몇개나 있는지
+// 문제 : 가장 많이 사용된 단어와 사용 횟수 순서대로 출력하시오
+// 
 
 int main()
 //--------
@@ -34,39 +42,31 @@ int main()
 		return 0;
 
 	
-	vector<STRING> v;
-	v.reserve(10000);
+	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
+	cout << ms.size() << endl;
 
-	STRING str;
-	int i{ 0 };
-	while (in >> str) {
-		v.push_back(str);
-	}
-	cout << v.size() << endl;
+	//for (const STRING& word : ms)cout << word << " ";
+	cout << endl;
 
-	set<STRING> s{ v.begin(), v.end() };
 	
-	for (const STRING& str : s)
-		cout << str << endl;
-	cout << s.size() << endl;
-
-	cout << "셋의 크기 - " << sizeof(s);
-
-	while (true) {
-		cout << "찾을단어?";
-		STRING ss;
-		cin >> ss;
-		int i =count_if(s.begin(), s.end(), [ss](const STRING& word) { //[ss] 람다 캡쳐 ,[=]모든걸 가져와라, [&]모든걸 래퍼런스로
-			auto p = search(word.begin(), word.end(), ss.begin(), ss.end());
-			if (p != word.end()) {
-				return true;
-			}
-			return false;
-		});
-		cout << i << "개" << endl;
+	map<STRING,size_t> m;
+	multimap<size_t,STRING,greater<size_t>> m_r;
+	
+	for (const STRING& word : ms) {
+		m[word]++; // 연관배열 - associative array
+	}
+	
+	for (auto [s, i] : m) {
+		cout << s << "-" << i << endl;
 	}
 
+	for (const auto& [key, value] : m) {
+		m_r.insert({ value, key });
+	}
 
-
+	for (auto [i, s] : m_r) {
+		cout << s << "-" << i << endl;
+	}
+  
 	//save("main.cpp");
 }
