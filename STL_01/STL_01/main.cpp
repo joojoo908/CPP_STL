@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------
-//  - 5 / 29 -
+//  - 6 / 05 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
@@ -19,54 +19,51 @@
 #include <iostream>
 
 #include <set>
-#include <ranges>
 #include <algorithm>
 #include <fstream>
-#include <vector>
 #include <map>
+#include <random>
+#include <array>
 
 #include "STRING.h"
 #include "save.h"
 using namespace std;
 
+default_random_engine dre;
+uniform_int_distribution uid{ 0,99'9999 };
+normal_distribution nd{ 0.0, 1.0 };
+
 extern bool 관찰;           //관찰하고 싶으면 true 로
 
-// 문제 : 가장 많이 사용된 단어와 사용 횟수 순서대로 출력하시오
-// 
+array<int, 10'0000> a;
+
+// a의 원소값은 노말한 분포인가?
+//a의 값을 10등분 해서 개수를 센 후 출력하라
 
 int main()
 //--------
 {
-	ifstream in{ "이상한 나라의 앨리스.txt" };
-	if (not in)
-		return 0;
-
-	
-	multiset<STRING> ms{ istream_iterator<STRING>{in},{} };
-	cout << ms.size() << endl;
-
-	//for (const STRING& word : ms)cout << word << " ";
-	cout << endl;
-
-	
-	map<STRING,size_t> m;
-	multimap<size_t,STRING,greater<size_t>> m_r;
-	
-	for (const STRING& word : ms) {
-		m[word]++; // 연관배열 - associative array
-	}
-	
-	for (auto [s, i] : m) {
-		cout << s << "-" << i << endl;
-	}
-
-	for (const auto& [key, value] : m) {
-		m_r.insert({ value, key });
-	}
-
-	for (auto [i, s] : m_r) {
-		cout << s << "-" << i << endl;
-	}
   
+	for (int& i : a) {
+		double d = nd(dre);
+		d += 4;
+		d *= 12'5000;
+		i = (int)d;
+	}
+
+	/*for (int i : a) {
+		cout << i << " ";
+	}*/
+
+	map<int, int> m;
+
+	for (int i : a) {
+		m[{i / 5'0000}]++;
+	}
+
+	for (auto [i1, i2] : m) {
+		cout << i1 << ":" << i2 << endl;
+	}
+
 	//save("main.cpp");
 }
