@@ -1,28 +1,24 @@
 ﻿// ------------------------------------------------------------
-//  - 6 / 05 -
+//  - 6 / 10 -
 // ------------------------------------------------------------
 // 6월 19일 목요일 - 15주 2일 - 기말
 // ------------------------------------------------------------
-// associative container (key 값을 기준으로 항상 정렬하는 컨테이너)
-// set / multiset - key==value   --동등성 관계를 이용하여 (< >)유니크함을 판단   /+상등성 관계(==)
-// map / multimap - pair<key,value>
-// 
-// Unordered Associative container - Hash 구조
+// 컨테이너의 찾기 실력을 비교/평가해 본다. N (1000만개)
+// 1.vector
+// 2.set
+// 3.unordered_set
 // ------------------------------------------------------------
-
-
-//set 에서 원소의 개수 구하기
-		//pair<multiset<STRING>::iterator, auto> pos = ms.equal_range(ss);
-		//distance(pos.first,pos.second);
-		// auto [s,e] = ms.equal_range(ss); //structured binding
-		// distance(s,e);
 
 
 #include <iostream>
 
+#include <array>
+#include <vector>
+#include <set>
 #include <unordered_set>
-#include <string>
-#include <print>
+#include <algorithm>
+#include <chrono>
+#include <random>
 
 #include "STRING.h"
 #include "save.h"
@@ -41,30 +37,80 @@ struct hash<STRING> {
 	}
 };
 
+//천만개의 랜덤 int 를 준비한다
+//만개의 찾을 random int를 따로 준비한다
+
+default_random_engine dre;
+uniform_int_distribution uid{ 1,1000'0000 };
+
+const int NUM{ 1000'0000 };
+const int FNUM{ 1'0000 };
+array<int, NUM>   a; //컨테이너의 데이터
+array<int, FNUM> fa; //찾아볼 데이터
+
+
 
 int main()
 //--------
 {
-	unordered_set<STRING, std::hash<STRING> > us = { "1","22","333","4444" };
-
-	while (1) {
-		
-		//언오더드 셋의 메모리를 그대로 화면 출력한다
-		for (size_t i = 0; i < us.bucket_count(); ++i) {
-			print("[{:>3}] - ", i);
-			for (auto bi = us.begin(i); bi != us.end(i); ++bi) {
-				cout << " - " << *bi;
-			}
-			cout << endl;
-		}
-
-		cout << "추가할 string을 입력하시오";
-		STRING s;
-		cin >> s;
-		us.insert(s);
-
-	}
-
-	
 	//save("main.cpp");
+
+	for (int& n :  a)n = uid(dre);
+	for (int& n : fa)n = uid(dre);
+
+	{
+		cout << "vector에서 찾기" << endl;
+		vector<int>v(a.begin(),a.end());
+		cout << "벡터의 원소 수" << v.size() << endl;
+
+		size_t cnt{};
+		cout << "찾는중 ...";
+		auto startTime = chrono::steady_clock::now();
+		for (int num : fa) {
+			auto p = find(v.begin(), v.end(), num);
+			if (p != v.end())cnt++;
+		}
+		auto endTime = chrono::steady_clock::now() - startTime;
+		cout << endl;
+		cout << "경과시간 -" << chrono::duration_cast<chrono::microseconds>(endTime) << endl;//14518675us
+		cout << "찾은갯수 -" << cnt << endl; //6290
+	}
+	cout << endl;
+	{
+		cout << "multiset에서 찾기" << endl;
+		cout << "데이터를 set에 넣는 중...";
+		multiset<int>ms(a.begin(), a.end());
+		cout << endl;
+		cout << "multi셋의 원소 수" << ms.size() << endl;
+
+		size_t cnt{};
+		cout << "찾는중 ...";
+		auto startTime = chrono::steady_clock::now();
+		for (int num : fa) {
+			if (ms.contains(num))cnt++;
+		}
+		auto endTime = chrono::steady_clock::now() - startTime;
+		cout << endl;
+		cout << "경과시간 -" << chrono::duration_cast<chrono::microseconds>(endTime) << endl;//22875us
+		cout << "찾은갯수 -" << cnt << endl; //6290
+	}
+	cout << endl;
+	{
+		cout << "unordered_multiset에서 찾기" << endl;
+		cout << "데이터를 set에 넣는 중...";
+		unordered_multiset<int>ums(a.begin(), a.end());
+		cout << endl;
+		cout << "unordered_multi셋의 원소 수" << ums.size() << endl;
+
+		size_t cnt{};
+		cout << "찾는중 ...";
+		auto startTime = chrono::steady_clock::now();
+		for (int num : fa) {
+			if (ums.contains(num))cnt++;
+		}
+		auto endTime = chrono::steady_clock::now() - startTime;
+		cout << endl;
+		cout << "경과시간 -" << chrono::duration_cast<chrono::microseconds>(endTime) << endl;//791us
+		cout << "찾은갯수 -" << cnt << endl; //6290
+	}
 }
